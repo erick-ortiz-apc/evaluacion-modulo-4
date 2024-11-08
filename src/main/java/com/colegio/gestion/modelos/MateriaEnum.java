@@ -1,16 +1,18 @@
 package com.colegio.gestion.modelos;
 
 public enum MateriaEnum {
-    MATEMATICAS(1),
-    LENGUAJE(2),
-    CIENCIA(3),
-    HISTORIA(4);
+    MATEMATICAS(1, "MATEMATICAS"),
+    LENGUAJE(2, "LENGUAJE"),
+    CIENCIA(3, "CIENCIA"),
+    HISTORIA(4, "HISTORIA");
 
     private final int numero;
+    private final String descripcion;  // Corregido de 'int' a 'String'
 
     // Constructor que recibe tanto el número como la descripción
-    MateriaEnum(int numero) {
+    MateriaEnum(int numero, String descripcion) {
         this.numero = numero;
+        this.descripcion = descripcion;
     }
 
     // Getter para obtener el número
@@ -18,8 +20,12 @@ public enum MateriaEnum {
         return numero;
     }
 
+    // Getter para obtener la descripción de la materia
+    public String getDescripcion() {
+        return descripcion;
+    }
+
     public String getMateriaConNumero() {
-        return numero + ". " + name();
+        return numero + ". " + descripcion;
     }
 }
-

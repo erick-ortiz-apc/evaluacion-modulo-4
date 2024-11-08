@@ -1,66 +1,100 @@
 package com.colegio.gestion.vistas;
 
-import java.util.Scanner;
-import java.util.HashMap;
+import com.colegio.gestion.modelos.Alumno;
+import com.colegio.gestion.modelos.Materia;
 import com.colegio.gestion.servicios.AlumnoServicio;
 import com.colegio.gestion.servicios.ArchivoServicio;
-import com.colegio.gestion.servicios.PromedioServicioImp;
-import com.colegio.gestion.modelos.Alumno;
+
+import java.util.Scanner;
 
 public class Menu extends MenuTemplate {
 
+    // Instancias de los servicios
     private AlumnoServicio alumnoServicio = new AlumnoServicio();
     private ArchivoServicio archivoServicio = new ArchivoServicio();
 
-    // Usar un solo Scanner para evitar fugas de recursos
-    private Scanner scanner = new Scanner(System.in);
-
     @Override
     public void crearAlumnos() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese el RUT del alumno:");
+        String rut = scanner.nextLine();
+
         System.out.println("Ingrese el nombre del alumno:");
         String nombre = scanner.nextLine();
 
-        System.out.println("Ingrese el rut del alumno:");
-        String rut = scanner.nextLine();
-        scanner.nextLine(); // Limpiar el buffer
+        System.out.println("Ingrese el apellido del alumno:");
+        String apellido = scanner.nextLine();
 
-        // Asegúrate de que el constructor de Alumno acepte estos parámetros
-        Alumno nuevoAlumno = new Alumno(String.valueOf(rut), nombre, "", ""); // Ajusta según el constructor de Alumno
-        alumnoServicio.agregarAlumno(nuevoAlumno);
+        System.out.println("Ingrese la dirección del alumno:");
+        String direccion = scanner.nextLine();
+
+        Alumno nuevoAlumno = new Alumno(rut, nombre, apellido, direccion);
+        alumnoServicio.crearAlumno(nuevoAlumno);
 
         System.out.println("Alumno creado exitosamente.");
     }
 
     @Override
     public void listarAlumnos() {
-        alumnoServicio.listarAlumnos();
+        System.out.println("--- Lista de Alumnos ---");
+        for (Alumno alumno : alumnoServicio.listarAlumnos().values()) {
+            System.out.println("RUT: " + alumno.getRut() + " - Nombre: " + alumno.getNombre());
+        }
     }
 
     @Override
     public void agregarMaterias() {
-        System.out.println("Ingrese el rut del alumno para agregar una materia:");
-        String rut = scanner.nextLine();
-        scanner.nextLine();
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Selecciona una materia:");
-        int materia = scanner.nextInt();
+        System.out.println("Ingrese el RUT del alumno para asignar una materia:");
+        String rutAlumno = scanner.nextLine();
 
-        alumnoServicio.agregarMateria(rut, materia);
-        System.out.println("Materia agregada exitosamente.");
+        System.out.println("Seleccione una materia:");
+        System.out.println("1. Matemáticas");
+        System.out.println("2. Lenguaje");
+        System.out.println("3. Ciencia");
+        System.out.println("4. Historia");
+
+        int opcionMateria = scanner.nextInt();
+        Materia materiaSeleccionada = null;
+
+        switch (opcionMateria) {
+            case 1:
+                materiaSeleccionada = new Materia(1, new ArrayList<>());
+                break;
+            case 2:
+                materiaSeleccionada = new Materia(2, new ArrayList<>());
+                break;
+            case 3:
+                materiaSeleccionada = new Materia(3, new ArrayList<>());
+                break;
+            case 4:
+                materiaSeleccionada = new Materia(4, new ArrayList<>());
+                break;
+            default:
+                System.out.println("Opción inválida.");
+                return;
+        }
+
+        alumnoServicio.agregarMateria(rutAlumno, materiaSeleccionada);
+        System.out.println("Materia '" + materiaSeleccionada.getNumero() + "' asignada al alumno con RUT " + rutAlumno + ".");
     }
 
     @Override
     public void agregarNotasPasoUno() {
-        System.out.println("Ingrese el rut del alumno para agregar una nota:");
-        String alumnoId = scanner.nextLine();
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Ingrese el nombre de la materia:");
-        String materia = scanner.next();
+        System.out.println("Ingrese el RUT del alumno para agregar una nota:");
+        String rutAlumno = scanner.nextLine();
+
+        System.out.println("Ingrese la materia para la que se desea agregar la nota:");
+        String materia = scanner.nextLine();
 
         System.out.println("Ingrese la nota:");
         double nota = scanner.nextDouble();
 
-        alumnoServicio.agregarNota(alumnoId, materia, nota);
+        //alumnoServicio.agregarNota(rutAlumno, materia, nota);
         System.out.println("Nota agregada exitosamente.");
     }
 
@@ -72,11 +106,9 @@ public class Menu extends MenuTemplate {
 
     @Override
     public void exportarDatos() {
-        // Asegúrate de pasar los parámetros correctos, por ejemplo, un Map de alumnos y la ruta
-        HashMap<String, Alumno> alumnos = new HashMap<>(); // Suponiendo que tienes un Map de alumnos
-        String ruta = "ruta/del/archivo.csv"; // Suponiendo que también necesitas una ruta de archivo
-        archivoServicio.exportarDatos(alumnos, ruta); // Ajusta el método para recibir estos parámetros
+        archivoServicio.exportarPromedios();
         System.out.println("Datos exportados exitosamente.");
     }
 }
+
 

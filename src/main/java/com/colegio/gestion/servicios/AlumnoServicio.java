@@ -11,7 +11,6 @@ public class AlumnoServicio {
 
     private Map<String, Alumno> listaAlumnos = new HashMap<>();
 
-    // Método para crear un nuevo alumno
     public void crearAlumno(Alumno alumno) {
         // Verificamos si el alumno ya existe
         if (!listaAlumnos.containsKey(alumno.getRut())) {
@@ -28,7 +27,7 @@ public class AlumnoServicio {
         if (alumno != null) {
             // Agregamos la materia al alumno
             alumno.getMaterias().add(materia);
-            System.out.println("Materia '" + materia.getNombre() + "' agregada al alumno con RUT " + rutAlumno + ".");
+            System.out.println("Materia '" + materia.getNumero() + "' agregada al alumno con RUT " + rutAlumno + ".");
         } else {
             System.out.println("Alumno con RUT " + rutAlumno + " no encontrado.");
         }

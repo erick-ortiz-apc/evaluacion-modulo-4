@@ -3,20 +3,20 @@ package com.colegio.gestion.modelos;
 import java.util.List;
 
 public class Materia {
-    private MateriaEnum nombre;  // Tipo de la materia utilizando el enum MateriaEnum
-    private List<Double> notas;  // Lista de notas de la materia del alumno
+    private MateriaEnum numero;
+    private List<Double> notas;
 
-    public Materia(MateriaEnum nombre, List<Double> notas) {
-        this.nombre = nombre;
+    public Materia(MateriaEnum numero, List<Double> notas) {
+        this.numero = numero;
         this.notas = notas;
     }
 
-    public MateriaEnum getNombre() {
-        return nombre;
+    public MateriaEnum getNumero() {
+        return numero;
     }
 
-    public void setNombre(MateriaEnum nombre) {
-        this.nombre = nombre;
+    public void setNombre(MateriaEnum numero) {
+        this.numero = numero;
     }
 
     public List<Double> getNotas() {
@@ -25,17 +25,5 @@ public class Materia {
 
     public void setNotas(List<Double> notas) {
         this.notas = notas;
-    }
-
-    public void agregarNota(Double nota) {
-        this.notas.add(nota);
-    }
-
-    public double calcularPromedio() {
-        double suma = 0;
-        for (Double nota : notas) {
-            suma += nota;
-        }
-        return notas.isEmpty() ? 0 : suma / notas.size();
     }
 }

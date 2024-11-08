@@ -1,23 +1,26 @@
 package com.colegio.gestion.servicios;
 
+import com.colegio.gestion.modelos.Materia;
+
 import java.util.List;
 
 public class PromedioServicioImp {
 
-    // Metodo para calcular el promedio de una lista de valores (notas)
-    public double calcularPromedio(List<Double> valores) {
-        if (valores == null || valores.isEmpty()) {
-            return 0;  // Si la lista está vacía o es nula, retornamos 0
+    public double calcularPromedio(List<Materia> materias) {
+        if (materias == null || materias.isEmpty()) {
+            throw new IllegalArgumentException("La lista de materias no puede estar vacía");
         }
 
-        double suma = 0;
+        double sumaPromedios = 0;
+        int cantidadMaterias = 0;
 
-        // Sumar todos los valores de la lista
-        for (Double valor : valores) {
-            suma += valor;
+        // Iterar sobre las materias y sumar sus promedios
+        for (Materia materia : materias) {
+            sumaPromedios += materia.calcularPromedio();
+            cantidadMaterias++;
         }
 
-        // Calcular el promedio
-        return suma / valores.size();
+        // Calcular el promedio total
+        return sumaPromedios / cantidadMaterias;
     }
 }
