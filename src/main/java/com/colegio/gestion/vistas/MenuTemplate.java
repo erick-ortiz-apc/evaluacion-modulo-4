@@ -2,64 +2,37 @@ package com.colegio.gestion.vistas;
 
 import java.util.Scanner;
 
-public class MenuTemplate {
-
-    public void crearAlumnos() {
-    }
-
-    public void listarAlumnos() {
-    }
-
-    public void agregarMaterias() {
-    }
-
-    public void agregarNotasPasoUno() {
-    }
-
-    public void terminarPrograma() {
-    }
-
-    public void exportarDatos() {
-    }
+public abstract class MenuTemplate {
+    protected Scanner scanner = new Scanner(System.in);
 
     public void iniciarMenu() {
-        Scanner scanner = new Scanner(System.in);
-        int opcion;
-        do {
-            System.out.println("\n--- Menú Principal ---");
-            System.out.println("2. Crear Alumnos");
-            System.out.println("5. Listar Alumnos");
-            System.out.println("3. Agregar Materias");
-            System.out.println("4. Agregar Notas");
-            System.out.println("4. Salir");
-            System.out.println("1. exportarDatos");
-            System.out.print("Selección: ");
-
-            opcion = scanner.nextInt();
+        while (true) {
+            System.out.println("1. Crear Alumno");
+            System.out.println("2. Listar Alumnos");
+            System.out.println("3. Agregar Materia");
+            System.out.println("4. Agregar Nota");
+            System.out.println("5. Exportar Datos");
+            System.out.println("6. Salir");
+            System.out.print("Seleccione una opción: ");
+            int opcion = scanner.nextInt();
 
             switch (opcion) {
-                case 1:
-                    crearAlumnos();
-                    break;
-                case 2:
-                    listarAlumnos();
-                    break;
-                case 3:
-                    agregarMaterias();
-                    break;
-                case 4:
-                    agregarNotasPasoUno();
-                    break;
-                case 5:
-                    terminarPrograma();
-                    break;
-                case 6:
-                    exportarDatos();
-                    break;
-                default:
-                    System.out.println("Opción no válida, intente nuevamente.");
+                case 1 -> crearAlumno();
+                case 2 -> listarAlumnos();
+                case 3 -> agregarMateria();
+                case 4 -> agregarNotaPasoUno();
+                case 5 -> exportarDatos();
+                case 6 -> terminarPrograma();
+                default -> System.out.println("Opción inválida. Intente de nuevo.");
             }
-        } while (opcion != 6);
-        scanner.close();
+        }
     }
+
+    // Métodos abstractos
+    public abstract void crearAlumno();
+    public abstract void listarAlumnos();
+    public abstract void agregarMateria();
+    public abstract void agregarNotaPasoUno();
+    public abstract void exportarDatos();
+    public abstract void terminarPrograma();
 }
