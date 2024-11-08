@@ -8,14 +8,13 @@ public class Alumno {
     private String nombre;
     private String apellido;
     private String direccion;
-    private List<Materia> materias;
+    private List<Materia> materias = new ArrayList<>();
 
     public Alumno(String rut, String nombre, String apellido, String direccion) {
         this.rut = rut;
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
-        this.materias = new ArrayList<>();  // Ahora se puede usar ArrayList
     }
 
     public String getRut() { return rut; }
